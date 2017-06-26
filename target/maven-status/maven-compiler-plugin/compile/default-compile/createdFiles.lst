@@ -1,3 +1,6 @@
 com\it355\rentacar\MainController.class
-com\it355\rentacar\Log.class
+com\it355\rentacar\LoginBean.class
 com\it355\rentacar\data\Product.class
+com\it355\rentacar\LoginService.class
+com\it355\rentacar\Log.class
+.netbeans_automatic_build

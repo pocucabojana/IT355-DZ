@@ -42,6 +42,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/IT355-DZ">Pocetna strana</a></li>
                     <li><a href="/IT355-DZ/addProduct">Dodaj automobil</a></li>
+                    <li><a href="/IT355-DZ/login">Login</a></li>
                     <li><a href="#about">O nama</a></li>
                     <li><a href="#contact">Kontakt</a></li>
                 </ul>
