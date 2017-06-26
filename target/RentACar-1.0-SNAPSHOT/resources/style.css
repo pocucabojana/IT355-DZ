@@ -1,0 +1,57 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 26, 2017, 9:59:12 AM
+    Author     : BojanaPocuca
+*/
+html,
+body {
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+    padding-top: 100px;
+}
+footer {
+    padding: 30px 0;
+}
+
+/*
+ * Custom styles
+ */
+.navbar-brand {
+    font-size: 24px;
+}
+
+.navbar-container {
+    padding: 20px 0 20px 0;
+}
+
+.navbar.navbar-fixed-top.fixed-theme {
+    background-color: #222;
+    border-color: #080808;
+    box-shadow: 0 0 5px rgba(0,0,0,.8);
+}
+
+.navbar-brand.fixed-theme {
+    font-size: 18px;
+}
+
+.navbar-container.fixed-theme {
+    padding: 0;
+}
+
+.navbar-brand.fixed-theme,
+.navbar-container.fixed-theme,
+.navbar.navbar-fixed-top.fixed-theme,
+.navbar-brand,
+.navbar-container{
+    transition: 0.8s;
+    -webkit-transition:  0.8s;
+}
+#box{
+    margin: 0 auto;
+    width: 50%;
+}
