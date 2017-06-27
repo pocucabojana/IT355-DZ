@@ -5,14 +5,15 @@
  */
 package com.it355.rentacar;
 
+import com.it355.rentacar.dao.ProductDao;
 import com.it355.rentacar.data.Product;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,72 +26,76 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
+    @Autowired
+    ProductDao dao;
+
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public String printHello(ModelMap model) {
         return "index";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/addProduct")
-    public String addProduct(ModelMap model) {
-        model.addAttribute("addProduct", new Product());
-        return "addProduct";
+    public ModelAndView addProduct() {
+        return new ModelAndView("addProduct", "command", new Product());
     }
 
-    @RequestMapping(value = "/productAdded", method
-            = RequestMethod.POST)
-    public String productAdded(@ModelAttribute Product product,
-            ModelMap model) {
-        model.addAttribute("productName", product.getProductName());
-        model.addAttribute("productPrice", product.getProductPrice());
-        model.addAttribute("productDescription", product.getProductDescription());
-        return "productAdded";
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView save(@ModelAttribute("product") Product product) {
+        dao.save(product);
+        return new ModelAndView("redirect:/allProducts");
+    }
+
+    @RequestMapping(value = "/allProducts", method = RequestMethod.GET)
+    public ModelAndView allProducts() {
+        List<Product> list = dao.getProducts();
+        return new ModelAndView("allProducts", "list", list);
+    }
+
+    @RequestMapping(value = "/editProducts/{id}", method = RequestMethod.GET)
+    public ModelAndView edit(@PathVariable int id) {
+        Product product = dao.getProductByID(id);
+        return new ModelAndView("editProducts", "command", product);
+    }
+
+    @RequestMapping(value = "/editsave", method = RequestMethod.POST)
+    public ModelAndView editsave(@ModelAttribute("product") Product product) {
+        dao.update(product);
+        return new ModelAndView("redirect:/allProducts");
+    }
+
+    @RequestMapping(value = "/deleteProduct/{id}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable int id) {
+        dao.delete(id);
+        return new ModelAndView("redirect:/allProducts");
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error",
-            required = false) String error,
+    public ModelAndView login(
+            @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout) {
         ModelAndView model = new ModelAndView();
         if (error != null) {
             model.addObject("error", "Invalid credentials!");
         }
         if (logout != null) {
-            model.addObject("msg", "You are logged out!");
+            model.addObject("message", "You are logged out!");
         }
         model.setViewName("login");
         return model;
     }
 
-    @RequestMapping(value = "/hello", method
-            = RequestMethod.GET)
-    public ModelAndView helloPage() {
-        ModelAndView model = new ModelAndView();
-        model.addObject("message", "Ovo je strana za korisnike!");
-        model.setViewName("hello");
-        return model;
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registration(Model model) {
+
+        return "register";
     }
 
-    @RequestMapping(value = "/admin**", method
+    @RequestMapping(value = "/welcome", method
             = RequestMethod.GET)
-    public ModelAndView adminPage() {
+    public ModelAndView welcomePage() {
         ModelAndView model = new ModelAndView();
-        model.addObject("message", "Ovo je strana za admine!");
-        model.setViewName("admin");
-        return model;
-    }
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
-        ModelAndView model = new ModelAndView();
-        Authentication auth
-                = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            System.out.println(userDetail);
-            model.addObject("username",
-                    userDetail.getUsername());
-        }
-        model.setViewName("403");
+        model.setViewName("welcome");
         return model;
     }
 

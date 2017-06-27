@@ -30,5 +30,12 @@
         <property name="username" value="root" />
         <property name="password" value="" />
     </bean>
+    <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource" ref="dataSource"></property>  
+    </bean>
+    
+    <bean id="dao" class="com.it355.rentacar.dao.ProductDao">
+        <property name="template" ref="jt"></property>
+    </bean>
 
 </beans>

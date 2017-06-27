@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2017 at 10:26 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Dec 07, 2016 at 09:00 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,27 +23,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
---
-
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `price` double DEFAULT NULL,
-  `CATEGORY_ID` int(11) DEFAULT NULL
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(256) NOT NULL,
+  `product_price` decimal(14,2) NOT NULL,
+  `product_description` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_description`) VALUES
+(2, 'Product', '259.00', 'Product'),
+(4, '123', '123.00', '123');
 
 -- --------------------------------------------------------
 
@@ -91,17 +87,10 @@ INSERT INTO `user_roles` (`user_role_id`, `username`, `role`) VALUES
 --
 
 --
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ryvopwisinq0s8st54rhloewo` (`CATEGORY_ID`);
+  ADD PRIMARY KEY (`product_id`);
 
 --
 -- Indexes for table `users`
@@ -122,15 +111,10 @@ ALTER TABLE `user_roles`
 --
 
 --
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
@@ -139,12 +123,6 @@ ALTER TABLE `user_roles`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `product`
---
-ALTER TABLE `product`
-  ADD CONSTRAINT `FK_ryvopwisinq0s8st54rhloewo` FOREIGN KEY (`CATEGORY_ID`) REFERENCES `category` (`id`);
 
 --
 -- Constraints for table `user_roles`

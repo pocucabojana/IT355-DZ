@@ -9,13 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Rent A Car-Add Product</title>
+        <title>RentACar-Add Product</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
 
 
-        <form:form method="POST" action="/IT355-DZ/productAdded" commandName="addProduct">
+        <form:form method="POST" action="save">
             <div class="text-center">
                 <div id="box">
                     <h2>Unesite informacije o automobilu</h2>
@@ -34,12 +34,12 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <div id="box"> <input type="submit" value="Add Product" class="btn-primary"/></div>
+                                <div id="box"> <input type="submit" value="Save" class="btn-primary"/></div>
                             </td>
                         </tr>
                     </table>
-
-
                 </div>
             </div>    
         </form:form>
+
+    </body>

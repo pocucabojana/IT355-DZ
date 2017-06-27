@@ -11,9 +11,18 @@ package com.it355.rentacar.data;
  */
 public class Product {
 
+    private int id;
     private String productName;
     private String productDescription;
     private double productPrice;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Product() {
 
