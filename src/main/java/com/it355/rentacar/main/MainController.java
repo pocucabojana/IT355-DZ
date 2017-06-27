@@ -72,8 +72,39 @@ public class MainController {
         return model;
     }
 
+    @RequestMapping(value = "/allCategories", method = RequestMethod.GET)
+    public ModelAndView getCategories(ModelAndView model) {
+        model.addObject("categories", shoppingCartDao.getCategories());
+        model.addObject("category", new Category());
+        return model;
+    }
+
+    @RequestMapping(value = "/editCategory/{id}", method = RequestMethod.GET)
+    public String addCategory(@PathVariable("id") int id, Model model) {
+        Category cat = shoppingCartDao.getCategoryByID(id);
+        model.addAttribute("category", cat);
+
+        return "addCategory";
+    }
+
+    @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
+    public String deleteCategory(@PathVariable("id") int id, HttpServletRequest request) {
+        System.out.println("Fetching & Deleting category with id " + id);
+        Category cat = shoppingCartDao.getCategoryByID(id);
+        if (cat == null) {
+            System.out.println("Unable to delete. category with id " + id + " not found");
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
+
+        shoppingCartDao.deleteCategory(cat);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
     @RequestMapping(value = "/editProduct/{id}", method = RequestMethod.GET)
-    public String addProduct(@PathVariable("id") int id, Model model) {
+    public String addProduct(@PathVariable("id") int id, Model model
+    ) {
         Product produc = shoppingCartDao.getProductByID(id);
         model.addAttribute("product", produc);
         model.addAttribute("categories", shoppingCartDao.getCategories());
@@ -81,7 +112,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/deleteProduct/{id}", method = RequestMethod.GET)
-    public String deleteProduct(@PathVariable("id") int id, HttpServletRequest request) {
+    public String deleteProduct(@PathVariable("id") int id, HttpServletRequest request
+    ) {
         System.out.println("Fetching & Deleting product with id " + id);
         Product produc = shoppingCartDao.getProductByID(id);
         if (produc == null) {

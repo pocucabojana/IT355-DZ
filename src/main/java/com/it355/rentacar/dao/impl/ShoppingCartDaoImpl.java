@@ -25,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository("ShoppingCartDao")
 @Service
-public class ShoppingCartDaoImpl implements ShoppingCartDao{
-    
- @SuppressWarnings("unused")
+public class ShoppingCartDaoImpl implements ShoppingCartDao {
+
+    @SuppressWarnings("unused")
     private final Log logger = LogFactory.getLog(getClass());
 
     //Instanciramo sesiju
@@ -47,8 +47,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 
     @SuppressWarnings("unchecked")
     @Override
-    //potrebno je da sve metode koje pozivaju sesiju i rade nešto nad bazom imaju anotaciju @Transactional
-    //to hibernate-u stavlja do znanja da treba da 'gleda' te metode i da one kreiraju transakciju neke vrste
     @Transactional
     public List<Product> getProducts() {
         List<Product> results = (List<Product>) getSession().createCriteria(Product.class).list();
@@ -58,15 +56,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
     @Override
     @Transactional
     public Product getProductByID(int id) {
-        /*getSession().createCriteria(Product.class).add(Restrictions.eq("id", id))
-				.uniqueResult() je metoda koju omogucava Hibernate
-            Ovo je vrsta SQL querry-ja pri cemu je tabela iz koje citamo podatke definisana kao
-            atribut metode createCriteria, dok su parametri po kojima pretrazujemo atributi metode
-            Restrictions.eq(naziv parametra u bazi, naziv parametra u entitetu). Za svaki parametar dodaje se
-            posebna restrikcija.
-            Ovaj kod bi mogao da se prevede u sql kao: 
-            SELECT * FROM PRODUCT WHERE ID=?
-         */
         Product product = (Product) getSession().createCriteria(Product.class).add(Restrictions.eq("id", id)).uniqueResult();
         return product;
 
@@ -111,13 +100,13 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
     @Override
     @Transactional
     public Category addCategory(Category category) {
-        return (Category)getSession().merge(category);
+        return (Category) getSession().merge(category);
     }
 
     @Override
     @Transactional
     public Product addProduct(Product product) {
-       return (Product)getSession().merge(product);
+        return (Product) getSession().merge(product);
     }
 
     @Override
@@ -148,4 +137,3 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
         getSession().delete(category);
     }
 }
-

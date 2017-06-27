@@ -48,13 +48,15 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <c:url var="index"  value="/" />
-                <c:url var="add"  value="/addProduct/" />
-                <c:url var="see"  value="/allProducts/" />
+                <c:url var="addpro"  value="/addProduct/" />
+                <c:url var="allpro"  value="/allProducts/" />
                 <c:url var="addcat"  value="/addCategory/" />
+                <c:url var="allcat"  value="/allCategories/" />
                 <li class="<%=  (pageName.equals("index.jsp")) ? "active" : ""%>"><a href="${index}">Indeks</a></li>
-                <li class="<%= (pageName.equals("addProduct.jsp")) ? "active" : ""%>"><a href="${add}">Dodaj automobil</a></li>
-                <li class="<%=  (pageName.equals("allProducts.jsp")) ? "active" : ""%>"><a href="${see}">Lista automobila</a></li>
+                <li class="<%= (pageName.equals("addProduct.jsp")) ? "active" : ""%>"><a href="${addpro}">Dodaj automobil</a></li>
+                <li class="<%=  (pageName.equals("allProducts.jsp")) ? "active" : ""%>"><a href="${allpro}">Lista automobila</a></li>
                 <li class="<%=   (pageName.equals("addCategory.jsp")) ? "active" : ""%>"><a href="${addcat}">Dodaj kategoriju</a></li>
+                <li class="<%=   (pageName.equals("allCategories.jsp")) ? "active" : ""%>"><a href="${allcat}">Lista kategorija</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
