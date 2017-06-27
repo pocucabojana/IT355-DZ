@@ -5,49 +5,59 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>  
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String uri = request.getRequestURI();
+    String pageName = uri.substring(uri.lastIndexOf("/") + 1);
+%> 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <spring:url value="/resources/style.css" var="showHomePage" />
-        <link href="${showHomePage}" rel="stylesheet" />
+    <spring:url value="/resources/style.css" var="showHomePage" />
+    <link href="${showHomePage}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
 
+    <spring:url value="/resources/script.js" var="homePageScript" />
+    <script src="${homePageScript}"></script>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css"/>
-        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("table").DataTable();
+        });
+    </script>
+    <title>Rent A Car</title>
 
-        <script src="resources/script.js"></script>
-        <title>Rent A Car</title>
+</head>
 
-
-
-    </head>
-
-    <nav id="header" class="navbar navbar-fixed-top">
-        <div id="header-container" class="container navbar-container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a id="brand" class="navbar-brand" href="#">Rent A Car</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/IT355-DZ">Pocetna strana</a></li>
-                    <li><a href="/IT355-DZ/addProduct">Dodaj automobil</a></li>
-                    <li><a href="/IT355-DZ/allProducts">Svi automobili</a></li>
-                    <li><a href="/IT355-DZ/login">Login/Register</a></li>
-                    <li><a href="#about">O nama</a></li>
-                    <li><a href="#contact">Kontakt</a></li>
-                </ul>
-            </div>
+<nav id="header" class="navbar navbar-fixed-top">
+    <div id="header-container" class="container navbar-container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a id="brand" class="navbar-brand" href="#">Rent A Car</a>
         </div>
-    </nav>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <c:url var="index"  value="/" />
+                <c:url var="add"  value="/addProduct/" />
+                <c:url var="see"  value="/allProducts/" />
+                <c:url var="addcat"  value="/addCategory/" />
+                <li class="<%=  (pageName.equals("index.jsp")) ? "active" : ""%>"><a href="${index}">Indeks</a></li>
+                <li class="<%= (pageName.equals("addProduct.jsp")) ? "active" : ""%>"><a href="${add}">Dodaj automobil</a></li>
+                <li class="<%=  (pageName.equals("allProducts.jsp")) ? "active" : ""%>"><a href="${see}">Lista automobila</a></li>
+                <li class="<%=   (pageName.equals("addCategory.jsp")) ? "active" : ""%>"><a href="${addcat}">Dodaj kategoriju</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

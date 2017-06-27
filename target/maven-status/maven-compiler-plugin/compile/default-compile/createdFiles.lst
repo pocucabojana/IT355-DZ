@@ -1,4 +1,9 @@
-com\it355\rentacar\MainController.class
-com\it355\rentacar\dao\ProductDao$1.class
 com\it355\rentacar\data\Product.class
 com\it355\rentacar\dao\ProductDao.class
+com\it355\rentacar\entity\Product.class
+com\it355\rentacar\converter\IntegerToCategory.class
+com\it355\rentacar\dao\impl\ShoppingCartDaoImpl.class
+com\it355\rentacar\main\MainController.class
+com\it355\rentacar\dao\ProductDao$1.class
+com\it355\rentacar\entity\Category.class
+com\it355\rentacar\dao\ShoppingCartDao.class

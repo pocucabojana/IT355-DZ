@@ -18,8 +18,9 @@ import org.springframework.jdbc.core.RowMapper;
  * @author BojanaPocuca
  */
 public class ProductDao {
- JdbcTemplate template;
-    
+
+    JdbcTemplate template;
+
     public void setTemplate(JdbcTemplate template) {
         this.template = template;
     }
@@ -57,4 +58,3 @@ public class ProductDao {
         });
     }
 }
-

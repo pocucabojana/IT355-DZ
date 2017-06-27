@@ -4,34 +4,42 @@
     Author     : BojanaPocuca
 --%>
 
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RentACar-Svi automobili</title>
-    </head>
-    <%@include file="header.jsp" %>
-    <body>
-        <div class="text-center">
-            <div id="box">
-                <table class="table">
+<%@include file="header.jsp" %>
+<h1 class="text-center">Product list</h1>
+<c:if test="${!empty products}">
 
-                    <tr><th>Id</th><th>Ime: </th><th>Cena: </th><th>Opis: </th><th>IZMENI</th><th>OBRISI</th>  
-                            <c:forEach var="product" items="${list}">   
-                        <tr>  
-                            <td>${product.id}</td>  
-                            <td>${product.productName}</td>  
-                            <td>${product.productPrice}</td>  
-                            <td>${product.productDescription}</td>  
-                            <td><a href="editProducts/${product.id}">IZMENI</a></td>  
-                            <td><a href="deleteProduct/${product.id}">OBRISI</a></td>  
-                        </tr>  
-                    </c:forEach>  
-                </table>  
-                <br/>  
-                <a href="/IT355-DZ/addProduct">Dodaj novi automobil</a> 
-            </div>
-        </div>
+    <div class="container">
 
-    </body>
+        <table class="table table-striped"> 
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Opis</th>
+                    <th>Cena</th>
+                    <th>Kategorija</th>
+                    <th>Izmeni</th>
+                    <th>Obrisi</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <c:forEach items="${products}" var="product">
+
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.description}</td>
+                        <td>${product.price}</td>
+                        <td>${product.category}</td>
+                        <td><a href="<c:url value='/editProduct/${product.id}' />"><span class="glyphicon glyphicon-pencil"></span> IZMENI </a></td>
+                        <td><a href="<c:url value='/deleteProduct/${product.id}' />"><span class="glyphicon glyphicon-remove"></span> OBRISI </a></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+    </div>
+</c:if>
